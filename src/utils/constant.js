@@ -12,3 +12,5 @@ export const USER_AVATAR =
       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNTY1NTVmNDcxMTEwNmQ2NjgzYjJkMzYzM2M0ODllZiIsInN1YiI6IjY1YzYzZTViYWE2NTllMDE3ZGVlZWRhNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kNZaCp4lmT6ruSLgEkzd5_tLfwtvFmE2OdFGgCFB6Rs'
     }
   };
+
+ export const IMG_CDN_URL = "https://image.tmdb.org/t/p/original";
