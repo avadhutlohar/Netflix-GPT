@@ -18,34 +18,41 @@ const GptSearchBar = () => {
       API_OPTIONS
     );
     const json = await data.json();
-    console.log(json.results);
+
     return json.results;
   };
 
   const handleGptSearchClick = async () => {
     console.log(searchText.current.value);
+    // Make an API call to GPT API and get Movie Results
 
     const gptQuery =
-      "Act as a movie recommendation engine and suggest me a movie for the query : " +
+      "Act as a Movie Recommendation system and suggest some movies for the query : " +
       searchText.current.value +
-      "only give me names of 5 movies, comma separated like : Shutter Island, Inception, The Dark Knight, The Matrix, The Shawshank Redemption";
+      ". only give me names of 5 movies, comma seperated like the example result given ahead. Example Result: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya";
+
     const gptResults = await openai.chat.completions.create({
       messages: [{ role: "user", content: gptQuery }],
       model: "gpt-3.5-turbo",
     });
 
     if (!gptResults.choices) {
+      // TODO: Write Error Handling
     }
-    const gptMovies = gptResults.choices?.[0]?.message?.content?.split(",");
 
-    const promiseArray = gptMovies.map((movie) => {
-      searchMovieTMDB(movie);
-    });
-    console.log(promiseArray);
+    console.log(gptResults.choices?.[0]?.message?.content);
+
+    const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
+
+    const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
+
     const tmdbResults = await Promise.all(promiseArray);
+
     console.log(tmdbResults);
 
-    dispatch(addGptMovieResult(tmdbResults));
+    dispatch(
+      addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
+    );
   };
 
   return (
