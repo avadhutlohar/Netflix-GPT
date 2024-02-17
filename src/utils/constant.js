@@ -8,7 +8,8 @@ export const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNTY1NTVmNDcxMTEwNmQ2NjgzYjJkMzYzM2M0ODllZiIsInN1YiI6IjY1YzYzZTViYWE2NTllMDE3ZGVlZWRhNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kNZaCp4lmT6ruSLgEkzd5_tLfwtvFmE2OdFGgCFB6Rs" ,
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNTY1NTVmNDcxMTEwNmQ2NjgzYjJkMzYzM2M0ODllZiIsInN1YiI6IjY1YzYzZTViYWE2NTllMDE3ZGVlZWRhNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kNZaCp4lmT6ruSLgEkzd5_tLfwtvFmE2OdFGgCFB6Rs",
   },
 };
 
@@ -23,4 +24,4 @@ export const SUPPORTED_LANGUAGES = [
   { identifier: "fr", name: "French" },
 ];
 
-export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;
+export const OPENAI_KEY = "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";

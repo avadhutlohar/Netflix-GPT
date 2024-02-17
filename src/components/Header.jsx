@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
@@ -11,10 +12,10 @@ import { changeLang } from "../utils/configSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -23,6 +24,7 @@ const Header = () => {
         navigate("/error");
       });
   };
+
   const handleGptSearchClick = () => {
     dispatch(toggleGptSearchView());
   };
@@ -56,10 +58,18 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="absolute px-8 py-2 z-10 w-screen flex justify-between ">
-      <img className="w-40 " src={logo} alt="logo" />
+    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between ">
+      <img className="w-44 mx-auto md:mx-0 " src={logo} alt="logo" />
+      <div className="flex items-center">
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="md:hidden text-white"
+        >
+          ☰
+        </button>
+      </div>
       {user && (
-        <div className="flex p-2 ">
+        <div className={`flex p-2 justify-between ${isMobileMenuOpen ? 'flex-col items-start md:flex-row' : 'hidden md:flex'}`}>
           {showGptSearch && (
             <select
               onChange={handleLanguageChange}
@@ -74,19 +84,20 @@ const Header = () => {
           )}
           <button
             onClick={handleGptSearchClick}
-            className="py-2 px-4 mx-4 my-4   bg-purple-700 text-white rounded-lg "
+            className="py-2 px-4 mx-4 my-2   bg-purple-700 text-white rounded-lg "
           >
             {showGptSearch ? "Home" : "GPT Search"}
           </button>
-
-          <img
-            className="w-12 h-12 rounded-lg"
-            src={user.photoURL}
-            alt="usericon"
-          />
-          <button onClick={handleSignOut} className="font-bold text-white">
-            Sign out
-          </button>
+          <div className="md:flex items-center">
+            <img
+              className="hidden md:block w-12 h-12 rounded-md"
+              src={user.photoURL}
+              alt="usericon"
+            />
+            <button onClick={handleSignOut} className="font-bold text-white ml-1">
+              Sign out
+            </button>
+          </div>
         </div>
       )}
     </div>
